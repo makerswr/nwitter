@@ -2,8 +2,11 @@ import { dbService, storageService } from "fbase";
 import { doc, deleteDoc, updateDoc } from "firebase/firestore";
 import { useState } from "react";
 import { ref, deleteObject } from "firebase/storage"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 
 const Nweet = ({ nweetObj, isOwner }) => {
+	
 	const [editing, setEditing] = useState(false);
 	const [newNweet, setNewNweet] = useState(nweetObj.text);
 	const onDeleteClick = async() => {
@@ -32,14 +35,21 @@ const Nweet = ({ nweetObj, isOwner }) => {
 	};
 	
 	return (
-		<div>
+		<div className="nweet">
 			{editing ? (
 				<>
-					<form onSubmit={onSubmit}>
-						<input onChange={onChange} value={newNweet} required />
-						<input type="submit" value="Update Nweet" />
+					<form onSubmit={onSubmit} className="container nweetEdit">
+						<input 
+							onChange={onChange} 
+							value={newNweet} 
+							required
+							placeholder="Edit ur Nweet"
+							autoFocus
+							className="formInput"
+						/>
+						<input type="submit" value="Update Nweet" className="formBtn" />
 					</form>
-					<button onClick={toggleEditing}>Cancel</button>
+					<button onClick={toggleEditing} className="formBtn cancelBtn">Cancel</button>
 				</>
 			) : (	
 				<>	
@@ -48,10 +58,14 @@ const Nweet = ({ nweetObj, isOwner }) => {
 						<img src={nweetObj.attachmentUrl} alt='~' width="50px" height="50px" />
 					)}
 					{isOwner && (
-						<>
-							<button onClick={onDeleteClick}>Delete Nweet</button>
-							<button onClick={toggleEditing}>Edit Nweet</button>
-						</>
+						<div className="nweet__actions">
+							<span onClick={onDeleteClick}>
+								<FontAwesomeIcon icon={faTrash} />
+							</span>
+							<span onClick={toggleEditing}>
+								<FontAwesomeIcon icon={faPencilAlt} />
+							</span>
+						</div>	
 					)}
 				</>
 			)}

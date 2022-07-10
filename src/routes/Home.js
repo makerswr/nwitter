@@ -1,5 +1,5 @@
 import { dbService } from "fbase";
-import { addDoc, getDocs, collection, onSnapshot } from "firebase/firestore";
+import { addDoc, getDocs, collection, onSnapshot, query, orderBy } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import Nweet from "components/Nweet";
 import { ref, uploadString, getDownloadURL } from "firebase/storage";
@@ -10,20 +10,29 @@ const Home = ({ userObj }) => {
 	const [nweet, setNweet] = useState("");
 	const [attachment, setAttachment] = useState("");
 	
-	useEffect(() => {
-		onSnapshot(collection(dbService, "nweets"), (snapshot) => {
+	const getNweets = () => {
+		const q = query(collection(dbService, "nweets"), orderBy("createdAt", "desc"));
+		const usbs = onSnapshot(q, (snapshot) => {
 			const newArray = snapshot.docs.map((document) => ({
 				id: document.id,
 				...document.data(),
 			}));
 			setNweets(newArray);
 		});	
+		return usbs;
+	}
+	
+	useEffect(() => {	
+		const usbs = getNweets();
+		return () => {
+			usbs();
+		};
 	}, []);
 	
 	return (
-		<>
+		<div className="container">
 			<NweetFactory userObj={userObj} />
-			<div>
+			<div style={{ marginTop: 30}}>
 				{nweets.map(nweet => {
 					return(
 						<Nweet 
@@ -34,7 +43,7 @@ const Home = ({ userObj }) => {
 					);
 				})}
 			</div>
-		</>
+		</div>
 	);
 };
 
