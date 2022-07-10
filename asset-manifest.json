@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/makerswr.github.io/nwitter/static/css/main.d077b48a.css",
-    "main.js": "/makerswr.github.io/nwitter/static/js/main.9283cfef.js",
-    "index.html": "/makerswr.github.io/nwitter/index.html",
-    "main.d077b48a.css.map": "/makerswr.github.io/nwitter/static/css/main.d077b48a.css.map",
-    "main.9283cfef.js.map": "/makerswr.github.io/nwitter/static/js/main.9283cfef.js.map"
+    "main.css": "/nwitter/static/css/main.d077b48a.css",
+    "main.js": "/nwitter/static/js/main.9283cfef.js",
+    "index.html": "/nwitter/index.html",
+    "main.d077b48a.css.map": "/nwitter/static/css/main.d077b48a.css.map",
+    "main.9283cfef.js.map": "/nwitter/static/js/main.9283cfef.js.map"
   },
   "entrypoints": [
     "static/css/main.d077b48a.css",
